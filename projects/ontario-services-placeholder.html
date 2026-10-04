@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ontario services company — case study — Sean Legge</title>
+  <meta name="description" content="Anonymized case study: internal tools and data workflows for an Ontario services company. Placeholder content pending publication approval.">
+  <link rel="canonical" href="[[PLACEHOLDER: canonical site URL]]/projects/ontario-services-placeholder.html">
+  <meta name="theme-color" content="#161310">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Ontario services company — case study">
+  <meta property="og:description" content="Anonymized case study of internal tools on CFML and SQL Server.">
+  <meta property="og:url" content="[[PLACEHOLDER: canonical site URL]]/projects/ontario-services-placeholder.html">
+  <meta property="og:image" content="[[PLACEHOLDER: canonical site URL]]/assets/og-image.png">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap">
+  <link rel="stylesheet" href="../css/styles.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand" href="../index.html">
+        <img class="brand__mark" src="../assets/logo-kamon.svg" width="40" height="40" alt="">
+        <span class="brand__name">Sean Legge</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <span class="nav-toggle__bars"></span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary">
+        <ul class="site-nav__list">
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../index.html#work">Work</a></li>
+          <li><a href="../index.html#services">Services</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="site-main">
+    <header class="case-hero wrap">
+      <p class="case-meta">Case study · Ontario services company</p>
+      <h1>Internal tools without a public site</h1>
+      <p class="lead">[[PLACEHOLDER: one-line problem this engagement solved]]</p>
+      <span class="rule" aria-hidden="true"></span>
+    </header>
+    <article class="section wrap prose">
+      <h2>Problem</h2>
+      <p>[[PLACEHOLDER: staff needed a reliable way to record, find, and update service work. Replace this with the real, anonymized problem.]]</p>
+      <p>This page is written so it stands without screenshots of a client system. Architecture, role, and sanitized code carry the story until you swap in approved copy.</p>
+      <h2>Constraints</h2>
+      <ul>
+        <li>[[PLACEHOLDER: existing CFML / Lucee application that could not be rewritten from scratch]]</li>
+        <li>[[PLACEHOLDER: SQL Server as the system of record]]</li>
+        <li>[[PLACEHOLDER: small team — design, QA, and support needed a clear handoff]]</li>
+        <li>[[PLACEHOLDER: no public URL; access limited to staff]]</li>
+      </ul>
+      <h2>My role</h2>
+      <p>Lead / senior developer: architecture decisions, mentoring, and coordinating design, QA, and support. [[PLACEHOLDER: add what you personally implemented versus what you directed.]]</p>
+      <h2>Architecture and approach</h2>
+      <p>A staff-facing CFML application sits between the browser and SQL Server. Shared procedures keep reads and writes consistent for QA and support. JavaScript on the front-end handles progressive enhancement only — forms still submit without it.</p>
+      <figure class="diagram">
+        <figcaption class="visually-hidden">Staff browser talks to a CFML application which reads and writes SQL Server. Support uses the same application.</figcaption>
+        <svg viewBox="0 0 700 220" width="700" height="220" role="img" aria-labelledby="svc-diagram-title">
+          <title id="svc-diagram-title">Staff browser, CFML application, and SQL Server</title>
+          <rect x="16" y="70" width="150" height="70" fill="#1f1a16" stroke="#c4a574"/>
+          <text x="91" y="110" fill="#f3ede4" text-anchor="middle" font-size="14">Staff browser</text>
+          <line x1="166" y1="105" x2="228" y2="105" stroke="#e24a3a" stroke-width="2"/>
+          <rect x="228" y="55" width="200" height="100" fill="#1f1a16" stroke="#c4a574"/>
+          <text x="328" y="100" fill="#f3ede4" text-anchor="middle" font-size="14">CFML (Lucee)</text>
+          <text x="328" y="122" fill="#c9bdb0" text-anchor="middle" font-size="12">HTML / CSS / JS</text>
+          <line x1="428" y1="105" x2="490" y2="105" stroke="#e24a3a" stroke-width="2"/>
+          <rect x="490" y="70" width="190" height="70" fill="#1f1a16" stroke="#c4a574"/>
+          <text x="585" y="110" fill="#f3ede4" text-anchor="middle" font-size="14">SQL Server</text>
+        </svg>
+      </figure>
+      <h3>Sanitized data access</h3>
+      <p>Table and procedure names below are generic. Replace them with anonymized names you are allowed to show.</p>
+      <pre class="code-block"><code class="language-sql">-- [[PLACEHOLDER: sanitized procedure; no production names that identify the client]]
+CREATE PROCEDURE dbo.GetActiveRecords
+    @Status nvarchar(32)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT
+        record_id,
+        display_name,
+        updated_at
+    FROM dbo.Records
+    WHERE status = @Status
+    ORDER BY updated_at DESC;
+END;
+</code></pre>
+      <h3>Front-end behaviour</h3>
+      <pre class="code-block"><code class="language-javascript">// [[PLACEHOLDER: sanitized enhancement; no client-specific endpoints]]
+document.querySelectorAll("[data-confirm]").forEach(function (form)
+{
+    form.addEventListener("submit", function (event)
+    {
+        const should_continue = window.confirm("Submit this change?");
+
+        if (!should_continue)
+        {
+            event.preventDefault();
+        }
+    });
+});
+</code></pre>
+      <h2>Outcome</h2>
+      <p>[[PLACEHOLDER: qualitative result — e.g. support could answer record questions without a developer, QA had a single path to test. Do not invent percentages.]]</p>
+      <h2>Stack</h2>
+      <ul class="skill-list">
+        <li>CFML</li>
+        <li>Lucee / ColdFusion</li>
+        <li>SQL Server</li>
+        <li>T-SQL</li>
+        <li>JavaScript</li>
+        <li>HTML / CSS</li>
+      </ul>
+      <p><a href="../index.html#work">Back to selected work</a></p>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap site-footer__inner">
+      <p>Sean Legge · Kitchener, Ontario</p>
+      <p><a href="../index.html">Home</a></p>
+    </div>
+  </footer>
+  <script src="../js/main.js" defer></script>
+</body>
+</html>

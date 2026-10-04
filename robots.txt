@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: [[PLACEHOLDER: canonical site URL]]/sitemap.xml
